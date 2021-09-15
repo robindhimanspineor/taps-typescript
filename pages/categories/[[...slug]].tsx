@@ -5,10 +5,10 @@ import SubCategoryItem from '../../components/SubCategoryType/SubCategoryItem';
 
 import styles from '../../styles/SubCategoryType.module.css';
 
-const Categories = ({ categoryType }: any) => {
+const Categories = ({ categoryType, ...otherProps }: any) => {
   const renderSubCategoryItem = () => {
     return categoryType.productTypeSkuList.sku.edges.map((item: any) => (
-      <SubCategoryItem key={item.node.id} product={item.node} />
+      <SubCategoryItem key={item.node.id} product={item.node} {...otherProps} />
     ));
   };
   return (
@@ -21,7 +21,7 @@ const Categories = ({ categoryType }: any) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context : any) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const category = context.query.category;
   const fieldTypeRequest = context.query.subcategory;
   const subcategory = context.query.subcategory;

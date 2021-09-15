@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const CART_QUERY = gql`
+const CART_QUERY = gql`
   query CartQuery(
     $cart_id: String!
     $user_id: String!
@@ -63,3 +63,5 @@ export const CART_QUERY = gql`
     }
   }
 `;
+
+export default CART_QUERY;

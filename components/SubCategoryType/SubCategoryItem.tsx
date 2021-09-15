@@ -1,34 +1,37 @@
-import { useMutation, useLazyQuery } from '@apollo/client';
-import { CART_QUERY } from '../../queries/cartQuery';
+import { useRouter } from 'next/router';
 
 import styles from '../../styles/SubCategoryType.module.css';
+import { addItem } from '../../utils/mutations';
+import { replaceCookie } from '../../helpers';
 
-const SubCategoryItem = ({ product }: any) => {
-  const cartQuery = useLazyQuery(CART_QUERY);
+const SubCategoryItem = ({ product, ...otherProps }: any) => {
+  const router = useRouter();
 
   const handleAddToCartClick = async (partNumber: any) => {
-    console.log(partNumber);
-    // let input = {
-    //   cart_id: 'ac39846d-858b-4d78-bf37-437034dcd4d9',
-    //   operation: 'add_item',
-    //   quantity: 1,
-    //   sku_id: partNumber,
-    //   user_id: 'e4759092-c69e-44a9-90c2-e74b1cc5d1e7',
-    //   zip_code: '12345',
-    // };
-    // await addItemQuery[0]({
-    //   variables: {
-    //     input,
-    //   },
-    // });
-    // cartQuery[0]({
-    //   variables: {
-    //     cart_id: '3cb00735-b4fd-4b08-9602-072e49211abe',
-    //     operation: 'view_cart',
-    //     user_id: '69adee74-7ada-4022-a3ca-784d85ad04bf',
-    //     zip_code: '90001',
-    //   },
-    // });
+    addItem(partNumber, 1, 'add_item', (items: any) => {
+      if (items.is_new === true) {
+        replaceCookie('cart_id', items.cart_id);
+      }
+      if (items.cart_entry.length === 1) {
+        otherProps.refetchCart();
+      }
+
+      // router.push('/cart');
+      // const id = `cartentry_${partNumber}`;
+      // const fadeTarget: any = document.getElementById(id);
+      // fadeTarget.style.display = 'block';
+      // // fadeTarget.style.transition = 'opacity .25s ease-in-out';
+      // const fadeEffect = setInterval(() => {
+      //   // if (!fadeTarget.style.display) {
+      //   //   fadeTarget.style.display = 'block';
+      //   // }
+      //   if (fadeTarget.style.display === 'block') {
+      //     fadeTarget.style.display = 'none';
+      //   } else {
+      //     clearInterval(fadeEffect);
+      //   }
+      // }, 1000);
+    });
   };
   return (
     <div className={styles.productBox}>
@@ -73,7 +76,7 @@ const SubCategoryItem = ({ product }: any) => {
               product.Availability === 'Y' ? styles.enable : styles.disable
             }`}
             disabled={product.Availability === 'Y' ? false : true}
-            onClick={() => handleAddToCartClick(product.PartNumber)}
+            onClick={() => handleAddToCartClick(product.primary)}
           >
             Add To Cart
           </button>

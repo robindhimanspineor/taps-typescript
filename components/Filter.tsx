@@ -10,13 +10,7 @@ import {
 
 import styles from '../styles/Filters.module.css';
 
-interface vehicleInterface {
-  year: string;
-  make: string
-  model: string
-  subModel: string
-  engine: string
-}
+import { getYears } from '../helpers/index';
 
 const Filter = () => {
   const router = useRouter();
@@ -34,8 +28,8 @@ const Filter = () => {
   });
 
   const handleChange = (e: any) => {
-    let obj = { ...vehicleData };
-    obj[e.target.name] = e.target.value;
+    let vehicleObj: any = { ...vehicleData };
+    vehicleObj[e.target.name] = e.target.value;
     if (e.target.name === 'year') {
       makeQuery[0]({ variables: { year: e.target.value } });
     }
@@ -63,7 +57,7 @@ const Filter = () => {
         },
       });
     }
-    setVehicalData({ ...obj });
+    setVehicalData({ ...vehicleObj });
   };
 
   const renderYears = () => {
@@ -75,15 +69,11 @@ const Filter = () => {
         className={styles.select}
       >
         <option value="year">Select Year</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-        <option value="2018">2018</option>
-        <option value="2017">2017</option>
-        <option value="2016">2016</option>
-        <option value="2015">2015</option>
-        <option value="2014">2014</option>
-        <option value="2013">2013</option>
+        {getYears().map((item: any) => (
+          <option key={item.key} value={item.value}>
+            {item.key}
+          </option>
+        ))}
       </select>
     );
   };

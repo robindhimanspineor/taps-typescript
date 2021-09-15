@@ -1,0 +1,15 @@
+{
+  "GAPI_PATH": "http://qa2gapi.enetdefender.com/graphql",
+  "SERVER_PORT": 5000,
+  "DOMAIN_PATH": "http://localhost:3000/",
+  "CRAWLING": true,
+  "PASS_PHRASE": "@!FBBE.2AE3.0D90.C041!0002!B4C2.B2C9!0000!CD8B.F53C.D068.BAB4",
+  "ETAG": 1558068212657,
+  "ANALYTIC_ID": "UA-139250952-1",
+  "GTM_ID": "GTM-K7QMBLB",
+  "ENV": "local",
+  "NEVERBOUNCE_KEY": "private_339469bf77daa3665de4761b12825ae3",
+  "REVERSE_PHONE_KEY": "f237adf0f2294bf3b9dbff5ad2a5a3ba",
+  "CLOUDFRONT_PATH": "/buildClient/",
+  "PAYPAL_CLIENT_ID": "AY8-TpTSm9HZ3LUZIaBiinBo6VZv4gwtISUWsaiKfVyqyDeka0-MKijVK6yJBJ_GM1_WjsKYwrGSgmVM"
+}
