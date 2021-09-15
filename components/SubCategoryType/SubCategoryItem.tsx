@@ -15,6 +15,8 @@ const SubCategoryItem = ({ product, ...otherProps }: any) => {
       if (items.cart_entry.length === 1) {
         otherProps.refetchCart();
       }
+      otherProps.getCartItems(items)
+      // console.log("items",items)
 
       // router.push('/cart');
       // const id = `cartentry_${partNumber}`;

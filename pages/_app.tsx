@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient()}>
-      <Layout>
+      <Layout cartItems={state.cartItems}>
         <Component
           {...pageProps}
           cartID={state.cartID}

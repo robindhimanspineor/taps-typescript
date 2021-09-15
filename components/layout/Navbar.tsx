@@ -1,26 +1,30 @@
 import { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { getCookie } from '../../helpers';
 import CART_QUERY from '../../queries/cartQuery';
 import styles from '../../styles/Navbar.module.css';
 
-const Navbar = ({ items }: any) => {
-  // const { data, refetch } = useQuery(CART_QUERY, {
-  //   variables: {
-  //     cart_id: getCookie('cart_id'),
-  //     operation: 'view_cart',
-  //     user_id: getCookie('taps_uuid'),
-  //     zip_code: '12345',
-  //   },
-  // });
+const Navbar = ({ ...otherProps }: any) => {
+  const [getQuery, { data }] = useLazyQuery(CART_QUERY, {});
+
+  useEffect(() => {
+    getQuery({
+      variables: {
+        cart_id: getCookie('cart_id'),
+        operation: 'view_cart',
+        user_id: getCookie('taps_uuid'),
+        zip_code: '12345',
+      },
+    });
+  }, [otherProps.cartItems.totalNumberOfItems]);
 
   return (
     <nav className={styles.navbar}>
       Auto Parts
       <div className={styles.rightContainer}>
-        {/* {data?.store?.outerCart?.cart?.totalNumberOfItems
-          ? data?.store?.outerCart?.cart?.totalNumberOfItems
-          : ''}{' '} */}
+        {otherProps.cartItems.totalNumberOfItems
+          ? otherProps.cartItems.totalNumberOfItems
+          : data?.store?.outerCart?.cart?.totalNumberOfItems}
         Items
       </div>
     </nav>

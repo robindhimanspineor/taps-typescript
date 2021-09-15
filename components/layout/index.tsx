@@ -1,10 +1,11 @@
 import Navbar from "./Navbar";
 import styles from "../../styles/Layout.module.css";
 
-const Layout = ({ children }: any) => {
+const Layout = ({ children ,...otherProps }: any) => {
+  
   return (
     <div className={styles.container}>
-      <Navbar />
+      <Navbar {...otherProps} />
       {children}
     </div>
   );
